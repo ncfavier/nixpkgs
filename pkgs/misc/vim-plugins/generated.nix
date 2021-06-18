@@ -2061,6 +2061,18 @@ final: prev:
     meta.homepage = "https://github.com/cocopon/iceberg.vim/";
   };
 
+  id3-vim = buildVimPluginFrom2Nix {
+    pname = "id3-vim";
+    version = "2020-05-01";
+    src = fetchFromGitHub {
+      owner = "AndrewRadev";
+      repo = "id3.vim";
+      rev = "908ac6b37980247e9be32ebb18705ccd80aaae6f";
+      sha256 = "0fjhjphv9wass04mxcnrbq1hzzyyrx8vykmxxshgwh4148rr0iy8";
+    };
+    meta.homepage = "https://github.com/AndrewRadev/id3.vim/";
+  };
+
   idris-vim = buildVimPluginFrom2Nix {
     pname = "idris-vim";
     version = "2017-12-04";
