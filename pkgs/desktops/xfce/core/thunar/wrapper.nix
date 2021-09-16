@@ -8,11 +8,12 @@ symlinkJoin {
   nativeBuildInputs = [ makeWrapper ];
 
   postBuild = ''
-    wrapProgram "$out/bin/thunar" \
-      --set "THUNARX_MODULE_DIR" "$out/lib/thunarx-3"
-
-    wrapProgram "$out/bin/thunar-settings" \
-      --set "THUNARX_MODULE_DIR" "$out/lib/thunarx-3"
+    # wrap executables so that they find the plugins
+    for exec in bin/thunar bin/thunar-settings; do
+      rm "$out/$exec"
+      makeWrapper "${thunar}/$exec" "$out/$exec" \
+        --set THUNARX_MODULE_DIR "$out/lib/thunarx-3"
+    done
 
     # NOTE: we need to remove the folder symlink itself and create
     # a new folder before trying to substitute any file below.
