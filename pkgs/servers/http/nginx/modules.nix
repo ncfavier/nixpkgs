@@ -179,7 +179,7 @@ in
     inputs = [ pkgs.luajit ];
     preConfigure = ''
       export LUAJIT_LIB="${pkgs.luajit}/lib"
-      export LUAJIT_INC="${pkgs.luajit}/include/luajit-2.0"
+      export LUAJIT_INC="${pkgs.luajit}/include/luajit-2.1"
     '';
     allowMemoryWriteExecute = true;
   };
