@@ -264,15 +264,7 @@ in
       };
 
       defaultSession = mkOption {
-        type = with types; nullOr str // {
-          description = "session name";
-          check = d:
-            assertMsg (d != null -> (str.check d && elem d cfg.displayManager.sessionData.sessionNames)) ''
-                Default graphical session, '${d}', not found.
-                Valid names for 'services.xserver.displayManager.defaultSession' are:
-                  ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
-              '';
-        };
+        type = with types; nullOr str;
         default =
           if dmDefault != null || wmDefault != null then
             defaultSessionFromLegacyOptions
@@ -376,9 +368,15 @@ in
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
         '';
       }
-      {
-        assertion = cfg.desktopManager.default != null || cfg.windowManager.default != null -> cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions;
+      { assertion = cfg.desktopManager.default != null || cfg.windowManager.default != null -> cfg.displayManager.defaultSession == defaultSessionFromLegacyOptions;
         message = "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
+      }
+      { assertion = cfg.displayManager.defaultSession != null -> elem cfg.displayManager.defaultSession cfg.displayManager.sessionData.sessionNames;
+        message = ''
+          Default graphical session '${cfg.displayManager.defaultSession}' not found.
+          Valid names for 'services.xserver.displayManager.defaultSession' are:
+            ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
+        '';
       }
     ];
 
