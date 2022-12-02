@@ -537,7 +537,6 @@ rec {
     let
       sep = builtins.unsafeDiscardStringContext _sep;
       s = builtins.unsafeDiscardStringContext _s;
-
       splits = builtins.filter builtins.isString (builtins.split (escapeRegex sep) s);
     in
       map (v: addContextFrom _sep (addContextFrom _s v)) splits;
