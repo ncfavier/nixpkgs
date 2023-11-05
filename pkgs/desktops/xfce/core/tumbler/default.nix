@@ -9,9 +9,8 @@
 , poppler
 , gst_all_1
 , libxfce4util
+, libopenraw
 }:
-
-# TODO: add libopenraw
 
 mkXfceDerivation {
   category = "xfce";
@@ -30,6 +29,7 @@ mkXfceDerivation {
     libgepub # optional EPUB thumbnailer support
     libgsf
     poppler # technically the glib binding
+    libopenraw # RAW support
   ];
 
   # WrapGAppsHook won't touch this binary automatically, so we wrap manually.
