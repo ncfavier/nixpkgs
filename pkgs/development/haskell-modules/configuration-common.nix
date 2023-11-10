@@ -2685,4 +2685,20 @@ self: super: {
   sdl2-gfx = overrideCabal { __propagatePkgConfigDepends = false; } super.sdl2-gfx;
   sdl2-ttf = overrideCabal { __onlyPropagateKnownPkgConfigModules = true; } super.sdl2-ttf;
 
+  brainfuck = appendPatch (fetchpatch {
+    url = "https://github.com/abbradar/brainfuck/pull/4.patch";
+    hash = "sha256-yhXVdcGnvHZG2sncGEJsDxoFZ77da/5NO09c4VaYKJk=";
+  }) super.brainfuck;
+
+  mueval = overrideSrc {
+    src = pkgs.fetchFromGitHub {
+      owner = "TerenceNg03";
+      repo = "mueval";
+      rev = "1ec465d20d3cf5eb8a890e5724ad87765c1c1a32";
+      hash = "sha256-gazVu7M9xDRjiRWc23RdkGp7lvy4OwycbbvtVpivZhA=";
+    };
+  } super.mueval;
+
+  knob = doJailbreak super.knob;
+
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super
