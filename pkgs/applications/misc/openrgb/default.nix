@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "openrgb";
-  version = "0.9";
+  version = "unstable-2024-10-09";
 
   src = fetchFromGitLab {
     owner = "CalcProgrammer1";
     repo = "OpenRGB";
-    rev = "release_${version}";
-    hash = "sha256-XBLj4EfupyeVHRc0pVI7hrXFoCNJ7ak2yO0QSfhBsGU=";
+    rev = "d5ef41bb80f443ab0872211b3109d037912d3c3a";
+    hash = "sha256-3yNhIytv7nyFVSoCXyzO1SdkuK0qjLEBH66NHTpH9CQ=";
   };
 
   nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs scripts/build-udev-rules.sh
     substituteInPlace scripts/build-udev-rules.sh \
-      --replace /bin/chmod "${coreutils}/bin/chmod"
+      --replace '/usr/bin/env chmod' "${coreutils}/bin/chmod"
   '';
 
   doInstallCheck = true;
