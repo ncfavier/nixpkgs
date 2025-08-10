@@ -291,6 +291,14 @@
           url = "https://gitlab.haskell.org/ghc/ghc/-/commit/39bb6e583d64738db51441a556d499aa93a4fc4a.patch";
           sha256 = "0w5fx413z924bi2irsy1l4xapxxhrq158b5gn6jzrbsmhvmpirs0";
         })
+      ]
+      # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/14362
+      ++ lib.optionals (lib.versionAtLeast version "9.12") [
+        (fetchpatch {
+          name = "ghc-js-linking-flags.patch";
+          url = "https://gitlab.haskell.org/ghc/ghc/-/commit/1d99d3e4b52cd71c9a810ab72ca664fbb857b933.patch";
+          hash = "sha256-kN8zWcZihlUYcgxYmAB5140A9dST/+av29qc9XFQvaY=";
+        })
       ];
 
     stdenv = stdenvNoCC;
