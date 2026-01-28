@@ -119,7 +119,7 @@ let
         else
           ''
             runHook preBuild
-            ${lib.getExe agdaWithPkgs} --build-library
+            ${lib.getExe agdaWithPkgs} -j"$NIX_BUILD_CORES" --build-library
             runHook postBuild
           '';
 
